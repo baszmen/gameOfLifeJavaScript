@@ -14,13 +14,27 @@ var automats = ['Gra w życie', 'Marsza', 'Inwazja'];
 // Change cell size to smaller
 function setSmallerCellSize() {
     cellSize = 25;
+    clearBoard();
     prepareBoard();
 }
 
 // Change cell size to bigger
 function setBiggerCellSize() {
     cellSize = 50;
+    clearBoard();
     prepareBoard();
+}
+
+// Clear all board
+function clearBoard() {
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext) {
+        var context = canvas.getContext('2d');
+        var canvasWidth = canvas.getAttribute('width');
+        var canvasHeight = canvas.getAttribute('height');
+        // Clear board
+        context.clearRect(0, 0, canvasWidth + 100, canvasHeight + 100);
+    }
 }
 
 // Fill board randomly
@@ -154,6 +168,7 @@ function drawBoard() {
     It also create a gameBoard - global game board array. For logical operations.
 */
 function drawBoardBoarders() {
+    console.log("Jestem w drawBoarders");
     var canvas = document.getElementById('canvas');
     if (canvas.getContext) {
         var context = canvas.getContext('2d');
@@ -172,10 +187,13 @@ function drawBoardBoarders() {
         // Clear board
         context.clearRect(0, 0, canvasWidth, canvasHeight);
 
+        console.log(cellSize);
         // Draw vertical lines.
         for (var x = 0; x <= canvasWidth; x += cellSize) {
             context.moveTo(0.5 + x + paddingAroundGrid, paddingAroundGrid);
+            console.log('Start' + (0.5 + x + paddingAroundGrid) + ' ' + paddingAroundGrid);
             context.lineTo(0.5 + x + paddingAroundGrid, canvasHeight + paddingAroundGrid);
+            console.log('End' + (0.5 + x + paddingAroundGrid) + ' ' + (canvasHeight + paddingAroundGrid));
         }
 
         // Draw horizontal lines

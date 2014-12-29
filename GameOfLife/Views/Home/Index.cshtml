@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title> GRA W ŻYCIE </title>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/BoardDrawing.js"></script>
+    <script src="~/Scripts/GameLogic.js"></script>
+    <script src="~/Scripts/Automats.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script>
+    </script>
+</head>
+<body onload="prepareBoard();">
+    <div>
+        <button type="button" onclick="clearCells();">Czyść!</button>
+        <button type="button" onclick="start();">Start!</button>
+        <button type="button" onclick="stop();">Stop!</button>
+        <button type="button" onclick="slowStep();">Wolno!</button>
+        <button type="button" onclick="mediumStep();">Średnio!</button>
+        <button type="button" onclick="fastStep();">Szybko!</button>
+        <button type="button" onclick="oneStep();">Krok!</button>
+        <button type="button" onclick="randomCells();">Losuj!</button>
+        <button type="button" onclick="setSmallerCellSize();">Mniejsze!</button>
+        <button type="button" onclick="setBiggerCellSize();">Większe!</button>
+        <form>
+            <select id="mySelect" size="4" onchange="playModeChanged();">
+                <option>Gra w życie</option>
+                <option>Marsz</option>
+                <option>Inwazja</option>
+            </select>
+        </form>
+    </div>
+    <div>
+        <canvas id="canvas" width="800" height="800" class="canvasContainer"> </canvas>
+    </div>
+</body>
+</html>

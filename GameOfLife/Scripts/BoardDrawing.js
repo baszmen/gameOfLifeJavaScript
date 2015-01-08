@@ -186,6 +186,7 @@ function drawBoardBoarders() {
 
         // Clear board
         context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.beginPath();
 
         console.log(cellSize);
         // Draw vertical lines.
@@ -204,6 +205,7 @@ function drawBoardBoarders() {
 
         context.strokeStyle = "black";
         context.stroke();
+        context.closePath();
 
         gameBoardX = cellWidthCount;
         gameBoardY = cellHeigthCount;

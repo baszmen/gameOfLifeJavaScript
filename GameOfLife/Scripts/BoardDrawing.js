@@ -54,8 +54,8 @@ function randomCells() {
     Fill rectangle and set values on gameBoard.
 */
 function getClickedPositionAndRedraw(e) {
-    var x = e.clientX - paddingAroundGrid - $('#canvas').offset().left;
-    var y = e.clientY - paddingAroundGrid - $('#canvas').offset().top;
+    var x = e.pageX - paddingAroundGrid - $('#canvas').offset().left;
+    var y = e.pageY - paddingAroundGrid - $('#canvas').offset().top;
     var canvasWidth = document.getElementById('canvas').getAttribute('width');
     var canvasHeight = document.getElementById('canvas').getAttribute('height');
     if (x > canvasWidth - paddingAroundGrid || y > canvasHeight - paddingAroundGrid ||

@@ -6,14 +6,18 @@ var paddingAroundGrid = 5;
 var cellSize = 50;
 var onMouseX = null;
 var onMouseY = null;
-var timeStep = 1 * 1000;
-var setIntervalId = null;
-var playFunction;
-var automats = ['Gra w życie', 'Marsza', 'Inwazja'];
+
+
+// Change cell size to size chosed by user (slider)
+function setCellSize(size) {
+    cellSize = size;
+    clearBoard();
+    prepareBoard();
+}
 
 // Change cell size to smaller
 function setSmallerCellSize() {
-    cellSize = 25;
+    cellSize = 10;
     clearBoard();
     prepareBoard();
 }

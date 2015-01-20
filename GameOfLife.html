@@ -7,22 +7,19 @@
     <script src="Scripts/GameLogic.js"></script>
     <script src="Scripts/Automats.js"></script>
     <script src="Scripts/Configuration.js"></script>
+    <script src="Scripts/jquery-ui.min.js"></script>
     <link href="Content/Site.css" rel="stylesheet" />
+    <link href="Scripts/jquery-ui.min.css" rel="stylesheet" />
     <script>
     </script>
 </head>
 <body onload="prepareBoard();">
     <div>
-        <button type="button" onclick="clearCells();">Czyść!</button>
+        <button type="button" onclick="clearCells();">Czysc!</button>
         <button type="button" onclick="start();">Start!</button>
         <button type="button" onclick="stop();">Stop!</button>
-        <button type="button" onclick="slowStep();">Wolno!</button>
-        <button type="button" onclick="mediumStep();">Średnio!</button>
-        <button type="button" onclick="fastStep();">Szybko!</button>
         <button type="button" onclick="oneStep();">Krok!</button>
         <button type="button" onclick="randomCells();">Losuj!</button>
-        <button type="button" onclick="setSmallerCellSize();">Mniejsze!</button>
-        <button type="button" onclick="setBiggerCellSize();">Większe!</button>
         <form>
             <select id="mySelect" size="4" onchange="playModeChanged();">
                 <option>Gra w życie</option>
@@ -30,6 +27,17 @@
                 <option>Inwazja</option>
             </select>
         </form>
+        <p>
+            <label for="ticks" style="border:0; color:#000000; font-weight:bold;">Klatek na sekunde:</label>
+            <input type="text" id="ticks" style="border:0; color:#000000; font-weight:bold;">
+        </p>
+        <div id="aminationTicksPerSecond"></div>
+
+        <p>
+            <label for="cellSize" readonly style="border:0; color:#000000; font-weight:bold;">Rozmiar komorki:</label>
+            <input type="text" id="cellSize" readonly style="border:0; color:#000000; font-weight:bold;">
+        </p>
+        <div id="cellSizeSlider"></div>
     </div>
     <div>
         <canvas id="canvas" width="800" height="800" class="canvasContainer"> </canvas>

@@ -1,3 +1,8 @@
+var timeStep = 1 * 1000;
+var setIntervalId = null;
+var playFunction;
+var automats = ['Gra w ¿ycie', 'Marsza', 'Inwazja'];
+
 /*
     Get clicked position and calculate x and y position to a board
     Fill rectangle and set values on gameBoard.
@@ -35,9 +40,9 @@ function getClickedPositionAndRedraw(e) {
 /*
 * Change mode after clicked on html form
 */
-function playModeChanged() {
-    var selectionId = document.getElementById('mySelect').options.selectedIndex;
-
+function playModeChanged(id) {
+    var selectionId = id;
+    //var selectionId = document.getElementById('mySelect').options.selectedIndex;
     if (selectionId == 0)
         playFunction = playGameOfLifeAutomat;
     else if (selectionId == 1)
@@ -57,6 +62,7 @@ function configuration() {
 
 // Start playing game of life with standard timestep
 function start() {
+    console.log(timeStep);
     if (setIntervalId != null)
         clearInterval(setIntervalId);
     setIntervalId = setInterval(playFunction, timeStep);
@@ -67,26 +73,43 @@ function oneStep() {
     playFunction();
 }
 
-// Set step to half a second
-function slowStep() {
-    timeStep = 1000 / 2;
-    start();
-}
-
-// Set step to quater a second
-function mediumStep() {
-    timeStep = 1000 / 4;
-    start();
-}
-
-// Set step to eigths a second
-function fastStep() {
-    timeStep = 1000 / 8;
-    start();
-}
-
 // Stop working
 function stop() {
     if (setIntervalId != null)
         clearInterval(setIntervalId);
 }
+
+// Refresh timestep
+function refreshStep() {
+    var isWorking = setIntervalId != null;
+    stop();
+    if (isWorking)
+        start();
+}
+
+
+$(function () {
+    $("#cellSizeSlider").slider({
+        range: "min",
+        value: 50,
+        min: 1,
+        max: 100,
+        slide: function (event, ui) {
+            $("#cellSize").val(ui.value);
+            setCellSize(ui.value);
+        }
+    });
+    $("#aminationTicksPerSecond").slider({
+        range: "min",
+        value: 1,
+        min: 1,
+        max: 10,
+        slide: function (event, ui) {
+            $("#ticks").val(ui.value);
+            timeStep = 1000 / ui.value;
+            refreshStep();
+        }
+    });
+    $("#cellSize").val($("#cellSizeSlider").slider("value"));
+    $("#ticks").val($("#aminationTicksPerSecond").slider("value"));
+});

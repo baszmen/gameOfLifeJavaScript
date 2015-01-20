@@ -11,7 +11,36 @@
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Scripts/jquery-ui.min.css" rel="stylesheet" />
     <script>
+        $(function () {
+            $("#radius").selectmenu({
+                change: function (event, data) {
+                    playModeChanged(data.item.value);
+                    refreshStep();
+                }
+            });
+            $("input[type=submit], a, button")
+              .button()
+              .click(function (event) {
+                  event.preventDefault();
+      });
+        });
     </script>
+    <style>
+        fieldset {
+            border: 0;
+            margin-left: 300px;
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 0 0;
+        }
+
+        select {
+            width: 200px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body onload="prepareBoard();">
     <div>
@@ -20,13 +49,13 @@
         <button type="button" onclick="stop();">Stop!</button>
         <button type="button" onclick="oneStep();">Krok!</button>
         <button type="button" onclick="randomCells();">Losuj!</button>
-        <form>
-            <select id="mySelect" size="4" onchange="playModeChanged();">
-                <option>Gra w życie</option>
-                <option>Marsz</option>
-                <option>Inwazja</option>
-            </select>
-        </form>
+
+        <label for="radius" style="border:0; color:#000000; font-weight:bold;">Wybierz metode:</label>
+        <select name="radius" id="radius">
+            <option value="0">Gra w zycie</option>
+            <option value="1">Marsz</option>
+            <option value="2">Inwazja</option>
+        </select>
         <p>
             <label for="ticks" style="border:0; color:#000000; font-weight:bold;">Klatek na sekunde:</label>
             <input type="text" id="ticks" style="border:0; color:#000000; font-weight:bold;">

@@ -49,6 +49,14 @@ function randomCells() {
         }
 }
 
+function randomForInvasion() {
+    var random = Math.random() * 2;
+    return random > 1.33 ? 2 : (random > 0.66) ? 1 : 0;
+}
+
+function simpleRandom() {
+    return (Math.random() > 0.5) ? 1 : 0;
+}
 /*
     Get clicked position and calculate x and y position to a board
     Fill rectangle and set values on gameBoard.

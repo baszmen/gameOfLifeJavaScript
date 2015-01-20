@@ -39,105 +39,32 @@ function clearBoard() {
 
 // Fill board randomly
 function randomCells() {
+    var random = (playFunction == playInvasionGameAutomat) ? randomForInvasion : simpleRandom;
     for (var i = 0; i < gameBoardX; i++)
         for (var j = 0; j < gameBoardY; j++) {
-            gameBoard[i][j] = (Math.random() > 0.5) ? 1 : 0;
-            if (gameBoard[i][j] == 1)
+            gameBoard[i][j] = random();
+            if (gameBoard[i][j] >= 1)
                 fillCell(i, j);
             else
                 clearCell(i, j);
         }
 }
 
+/*
+* Random function to generate values: 2, 1, 0. Based on simple random, that 
+returns values in range (0,1) multiplied by 2.
+*/
 function randomForInvasion() {
     var random = Math.random() * 2;
+    console.log("random" + " " + random);
     return random > 1.33 ? 2 : (random > 0.66) ? 1 : 0;
 }
 
+/*
+* Simple random function to generate values: 1, 0.
+*/
 function simpleRandom() {
     return (Math.random() > 0.5) ? 1 : 0;
-}
-/*
-    Get clicked position and calculate x and y position to a board
-    Fill rectangle and set values on gameBoard.
-*/
-function getClickedPositionAndRedraw(e) {
-    var x = e.pageX - paddingAroundGrid - $('#canvas').offset().left;
-    var y = e.pageY - paddingAroundGrid - $('#canvas').offset().top;
-    var canvasWidth = document.getElementById('canvas').getAttribute('width');
-    var canvasHeight = document.getElementById('canvas').getAttribute('height');
-    if (x > canvasWidth - paddingAroundGrid || y > canvasHeight - paddingAroundGrid ||
-        x < 0 || y < 0)
-        return;
-    x = parseInt(x / cellSize);
-    y = parseInt(y / cellSize);
-
-    if (gameBoard[x][y] == 0) {
-        gameBoard[x][y] = 1;
-        fillCell(x, y);
-    } else if (gameBoard[x][y] == 1 && playFunction == playInvasionGameAutomat) {
-        gameBoard[x][y] = 2;
-        fillCell(x, y);
-    } else {
-        gameBoard[x][y] = 0;
-        clearCell(x, y);
-    }
-}
-
-function playModeChanged() {
-    var selectionId = document.getElementById('mySelect').options.selectedIndex;
-
-    if (selectionId == 0)
-        playFunction = playGameOfLifeAutomat;
-    else if (selectionId == 1)
-        playFunction = playMarchGameAutomat;
-    else if (selectionId == 2)
-        playFunction = playInvasionGameAutomat;
-    else
-        playFunction = playGameOfLifeAutomat;
-}
-
-// Event handlers configuration
-function configuration() {
-    playFunction = playInvasionGameAutomat;
-    var canvas = document.getElementById('canvas');
-    canvas.addEventListener('click', getClickedPositionAndRedraw, false);
-}
-
-// Start playing game of life with standard timestep
-function start() {
-    if (setIntervalId != null)
-        clearInterval(setIntervalId);
-    setIntervalId = setInterval(playFunction, timeStep);
-}
-
-function oneStep() {
-    stop();
-    playFunction();
-}
-
-// Set step to half a second
-function slowStep() {
-    timeStep = 1000 / 2;
-    start();
-}
-
-// Set step to quater a second
-function mediumStep() {
-    timeStep = 1000 / 4;
-    start();
-}
-
-// Set step to eigths a second
-function fastStep() {
-    timeStep = 1000 / 8;
-    start();
-}
-
-// Stop working
-function stop() {
-    if (setIntervalId != null)
-        clearInterval(setIntervalId);
 }
 
 // Clear all cells

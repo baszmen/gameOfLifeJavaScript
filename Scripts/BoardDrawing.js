@@ -107,7 +107,6 @@ function drawBoard() {
     It also create a gameBoard - global game board array. For logical operations.
 */
 function drawBoardBoarders() {
-    console.log("Jestem w drawBoarders");
     var canvas = document.getElementById('canvas');
     if (canvas.getContext) {
         var context = canvas.getContext('2d');
@@ -131,9 +130,9 @@ function drawBoardBoarders() {
         // Draw vertical lines.
         for (var x = 0; x <= canvasWidth; x += cellSize) {
             context.moveTo(0.5 + x + paddingAroundGrid, paddingAroundGrid);
-            console.log('Start' + (0.5 + x + paddingAroundGrid) + ' ' + paddingAroundGrid);
+            //console.log('Start' + (0.5 + x + paddingAroundGrid) + ' ' + paddingAroundGrid);
             context.lineTo(0.5 + x + paddingAroundGrid, canvasHeight + paddingAroundGrid);
-            console.log('End' + (0.5 + x + paddingAroundGrid) + ' ' + (canvasHeight + paddingAroundGrid));
+            //console.log('End' + (0.5 + x + paddingAroundGrid) + ' ' + (canvasHeight + paddingAroundGrid));
         }
 
         // Draw horizontal lines
@@ -145,6 +144,18 @@ function drawBoardBoarders() {
         context.strokeStyle = "black";
         context.stroke();
         context.closePath();
+
+        var previousBoardState = new Array(gameBoardX);
+        var previousWidth = gameBoardX;
+        var previousHeigth = gameBoardY;
+        for (var i = 0; i < previousWidth; i++) {
+            previousBoardState[i] = new Array(previousHeigth);
+        }
+
+        for (var i = 0; i < previousWidth; i++)
+            for (var j = 0; j < previousHeigth; j++) {
+                previousBoardState[i][j] = gameBoard[i][j];
+            }
 
         gameBoardX = cellWidthCount;
         gameBoardY = cellHeigthCount;
@@ -159,6 +170,12 @@ function drawBoardBoarders() {
         for (var i = 0; i < gameBoardX; i++)
             for (var j = 0; j < gameBoardY; j++) {
                 gameBoard[i][j] = gameBoardCopy[i][j] = 0;
+            }
+
+        // Set previous data
+        for (var i = 0; i < previousWidth; i++)
+            for (var j = 0; j < previousHeigth; j++) {
+                gameBoard[i][j] = gameBoardCopy[i][j] = previousBoardState[i][j];
             }
     }
 }

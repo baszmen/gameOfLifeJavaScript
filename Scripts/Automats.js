@@ -19,6 +19,9 @@ function playLifeAutomat(neighborsFunction) {
         }
     }
 
+    if (!anyChanges())
+        stop();
+
     setGameBoardToGameBoardCopy();
 }
 
@@ -65,4 +68,21 @@ function playInvasionAutomat(neighborsFunction) {
     }
 
     setGameBoardToGameBoardCopy();
+}
+
+
+/*
+    Check if there is any changes in gameBoard and gameBoardCopy.
+    If not, we can stop playing.
+*/
+function anyChanges() {
+    var changes = false;
+    for (var i = 0; i < gameBoardX; i++) {
+        for (var j = 0; j < gameBoardY; j++) {
+            if (gameBoard[i][j] != gameBoardCopy[i][j])
+                changes = true;
+        }
+    }
+
+    return changes;
 }

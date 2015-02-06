@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <head>
     <title> GRA W ŻYCIE </title>
     <script src="Scripts/jquery-1.8.2.min.js"></script>
@@ -10,40 +9,9 @@
     <script src="Scripts/jquery-ui.min.js"></script>
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Scripts/jquery-ui.min.css" rel="stylesheet" />
-    <script>
-        $(function () {
-            $("#radius").selectmenu({
-                change: function (event, data) {
-                    playModeChanged(data.item.value);
-                    refreshStep();
-                }
-            });
-            $("input[type=submit], a, button")
-              .button()
-              .click(function (event) {
-                  event.preventDefault();
-      });
-        });
-    </script>
-    <style>
-        fieldset {
-            border: 0;
-            margin-left: 300px;
-        }
-
-        label {
-            display: block;
-            margin: 20px 0 0 0;
-        }
-
-        select {
-            width: 200px;
-            height: 20px;
-        }
-    </style>
 </head>
 <body onload="prepareBoard();">
-    <div>
+    <div id="menuContainer">
         <button type="button" onclick="clearCells();">Czysc!</button>
         <button type="button" onclick="start();">Start!</button>
         <button type="button" onclick="stop();">Stop!</button>
@@ -56,6 +24,7 @@
             <option value="1">Marsz</option>
             <option value="2">Inwazja</option>
         </select>
+
         <p>
             <label for="ticks" style="border:0; color:#000000; font-weight:bold;">Klatek na sekunde:</label>
             <input type="text" id="ticks" style="border:0; color:#000000; font-weight:bold;">
@@ -68,8 +37,8 @@
         </p>
         <div id="cellSizeSlider"></div>
     </div>
-    <div>
-        <canvas id="canvas" width="800" height="800" class="canvasContainer"> </canvas>
+    <div id="boardContainer">
+        <canvas id="canvas" class="canvasContainer"> </canvas>
     </div>
 </body>
 </html>

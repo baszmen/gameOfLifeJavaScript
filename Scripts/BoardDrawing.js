@@ -60,7 +60,6 @@ returns values in range (0,1) multiplied by 2.
 */
 function randomForInvasion() {
     var random = Math.random() * 2;
-    console.log("random" + " " + random);
     return random > 1.33 ? 2 : (random > 0.66) ? 1 : 0;
 }
 
@@ -113,6 +112,7 @@ function drawBoardBoarders() {
         var canvasWidth = canvas.getAttribute('width');
         var canvasHeight = canvas.getAttribute('height');
 
+        console.log(canvasHeight + " " + canvasWidth);
 
         // Calculate cellsCount (width and height)
         var cellWidthCount = parseInt((canvasWidth - 2 * paddingAroundGrid) / cellSize);
@@ -121,6 +121,9 @@ function drawBoardBoarders() {
         // Calculate new height and width based on cellsize
         canvasWidth = parseInt(cellWidthCount * cellSize);
         canvasHeight = parseInt(cellHeigthCount * cellSize);
+
+
+        console.log('Calculated' + canvasHeight + " " + canvasWidth);
 
         // Clear board
         context.clearRect(0, 0, canvasWidth, canvasHeight);

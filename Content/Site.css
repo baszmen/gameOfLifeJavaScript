@@ -55,8 +55,6 @@ a {
     }
 
 .canvasContainer {
-    width: 800px;
-    height: 800px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -64,4 +62,31 @@ a {
 .canvas {
     width: 800px;
     height: 800px;
+}
+
+fieldset {
+    border: 0;
+    margin-left: 300px;
+}
+
+label {
+    display: block;
+    margin: 20px 0 0 0;
+}
+
+select {
+    width: 200px;
+    height: 20px;
+}
+
+#menuContainer {
+  float:left;
+  width:30%;
+    height: 100%;
+}
+
+#boardContainer {
+  float:left;
+  width:70%;
+    height: 100%;
 }

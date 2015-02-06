@@ -42,7 +42,6 @@ function getClickedPositionAndRedraw(e) {
 */
 function playModeChanged(id) {
     var selectionId = id;
-    //var selectionId = document.getElementById('mySelect').options.selectedIndex;
     if (selectionId == 0)
         playFunction = playGameOfLifeAutomat;
     else if (selectionId == 1)
@@ -88,11 +87,24 @@ function refreshStep() {
 }
 
 
+// Configuration of jQuery controls - sliders, selection menu and buttons.
 $(function () {
+    var a = sessionStorage.getItem("lang");
+
+    window.addEventListener('resize', function (event) {
+        var boardContainer = document.getElementById('boardContainer');
+
+        console.log(boardContainer);
+
+        document.getElementById('canvas').setAttribute('width', Math.min($("#boardContainer").width(),$("#boardContainer").height()));
+        document.getElementById('canvas').setAttribute('height', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
+        prepareBoard();
+    });
+
     $("#cellSizeSlider").slider({
         range: "min",
         value: 50,
-        min: 1,
+        min: 10,
         max: 100,
         slide: function (event, ui) {
             $("#cellSize").val(ui.value);
@@ -101,15 +113,22 @@ $(function () {
     });
     $("#aminationTicksPerSecond").slider({
         range: "min",
-        value: 1,
+        value: 10,
         min: 1,
-        max: 10,
+        max: 20,
         slide: function (event, ui) {
             $("#ticks").val(ui.value);
             timeStep = 1000 / ui.value;
             refreshStep();
         }
     });
+    $("#radius").selectmenu({
+        change: function (event, data) {
+            playModeChanged(data.item.value);
+            refreshStep();
+        }
+    });
+
     $("#cellSize").val($("#cellSizeSlider").slider("value"));
     $("#ticks").val($("#aminationTicksPerSecond").slider("value"));
 });

@@ -82,11 +82,16 @@ select {
 #menuContainer {
   float:left;
   width:30%;
-    height: 100%;
+  height: 100%;
 }
 
 #boardContainer {
   float:left;
   width:70%;
-    height: 100%;
+  height: 100%;
+    flex: 1;
+}
+
+#boardContainer {
+    height: 100vh;
 }

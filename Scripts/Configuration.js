@@ -69,7 +69,6 @@ function getClickedPositionAndRedraw(e) {
 * Change mode after clicked on html form
 */
 function playModeChanged() {
-    console.log("Dupsko");
     var selectionId = document.getElementById('selectionMenu').value;
     if (selectionId == 0)
         playFunction = playGameOfLifeAutomat;
@@ -79,7 +78,6 @@ function playModeChanged() {
         playFunction = playInvasionGameAutomat;
     else
         playFunction = playGameOfLifeAutomat;
-    console.log(playFunction);
 }
 
 // Event handlers configuration
@@ -133,9 +131,6 @@ $(function () {
 
     window.addEventListener('resize', function (event) {
         var boardContainer = document.getElementById('boardContainer');
-
-        console.log(boardContainer);
-
         document.getElementById('canvas').setAttribute('width', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
         document.getElementById('canvas').setAttribute('height', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
         prepareBoard();

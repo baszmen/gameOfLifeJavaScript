@@ -19,10 +19,7 @@ function playLifeAutomat(neighborsFunction) {
         }
     }
 
-    if (!anyChanges())
-        stop();
-
-    setGameBoardToGameBoardCopy();
+    prepareBoardAfterChanges();
 }
 
 /*
@@ -44,7 +41,7 @@ function playMarchAutomat(neighborsFunction) {
         }
     }
 
-    setGameBoardToGameBoardCopy();
+    prepareBoardAfterChanges();
 }
 
 /*
@@ -67,9 +64,16 @@ function playInvasionAutomat(neighborsFunction) {
         }
     }
 
-    setGameBoardToGameBoardCopy();
+    prepareBoardAfterChanges();
 }
 
+
+function prepareBoardAfterChanges() {
+    if (!anyChanges())
+        stop();
+
+    setGameBoardToGameBoardCopy();
+}
 
 /*
     Check if there is any changes in gameBoard and gameBoardCopy.

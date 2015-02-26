@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <head>
-    <title> GRA W ŻYCIE </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title> Binarne życie </title>
     <script src="Scripts/jquery-1.8.2.min.js"></script>
     <script src="Scripts/BoardDrawing.js"></script>
     <script src="Scripts/GameLogic.js"></script>
     <script src="Scripts/Automats.js"></script>
-    <script src="Scripts/Configuration.js"></script>
+    <script src="Scripts/Configuration.js" charset="ISO-8859-2"></script>
     <script src="Scripts/jquery-ui.min.js"></script>
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Scripts/jquery-ui.min.css" rel="stylesheet" />
 </head>
-<body onload="prepareBoard();">
+<body>
     <div id="menuContainer">
         <button id="clearButton" type="button" onclick="clearCells();">Czysc!</button>
         <button id="startButton" type="button" onclick="start();">Start!</button>
@@ -20,9 +21,14 @@
 
         <label id="methodLabel" for="radius" style="border:0; color:#000000; font-weight:bold;">Wybierz metode:</label>
         <select id="selectionMenu" onChange="playModeChanged();">
-            <option value="0" id="gameOfLifeOption">Gra w zycie</option>
             <option value="1" id="marchOption">Marsz</option>
             <option value="2" id="invasionOption">Inwazja</option>
+            <option value="3" id="blinkerOption">Blinker</option>
+            <option value="4" id="gliderOption">Glider</option>
+            <option value="5" id="piheptominoOption">Pi Heptomino</option>
+            <option value="6" id="rheptominoOption">R Heptomino</option>
+            <option value="7" id="thunderbirdOption">Thunderbird</option>
+            <option value="8" id="gildersdozenOption">GLiders by the Dozen</option>
         </select>
 
         <p>
@@ -38,7 +44,7 @@
         <div id="cellSizeSlider"></div>
     </div>
     <div id="boardContainer">
-        <canvas id="canvas" class="canvasContainer"> </canvas>
+        <canvas id="canvas" class="canvasContainer" width="570" height="570"> </canvas>
     </div>
 </body>
 </html>

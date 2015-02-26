@@ -10,8 +10,13 @@ var languageDict = {
         'stepButton': 'Krok',
         'randButton': 'Losuj',
         'methodLabel': 'Wybierze metodê',
-        'gameOfLifeOption': 'Gra w ¿ycie',
         'marchOption': 'Marsz',
+        'blinkerOption': '¯ycie / Blinker',
+        'gliderOption': '¯ycie / Glider',
+        'piheptominoOption': '¯ycie / Pi Heptomino',
+        'rheptominoOption': '¯ycie / R Heptomino',
+        'thunderbirdOption': '¯ycie / Thunderbird',
+        'gildersdozenOption': '¯ycie / Glider by the Dozen',
         'invasionOption': 'Inwazja',
         'fpsLabel': 'Klatek na sekundê:',
         'cellSizeLabel': 'Rozmiar komórki'
@@ -23,8 +28,13 @@ var languageDict = {
         'stepButton': 'Step',
         'randButton': 'Random',
         'methodLabel': 'Chose method:',
-        'gameOfLifeOption': 'Game of Life',
         'marchOption': 'March',
+        'blinkerOption': 'Life / Blinker',
+        'gliderOption': 'Life / Glider',
+        'piheptominoOption': 'Life / Pi Heptomino',
+        'rheptominoOption': 'Life / R Heptomino',
+        'thunderbirdOption': 'Life / Thunderbird',
+        'gildersdozenOption': 'Life / Glider by the Dozen',
         'invasionOption': 'Invasion',
         'fpsLabel': 'Frames per second:',
         'cellSizeLabel': 'Cell size:'
@@ -70,14 +80,31 @@ function getClickedPositionAndRedraw(e) {
 */
 function playModeChanged() {
     var selectionId = document.getElementById('selectionMenu').value;
-    if (selectionId == 0)
-        playFunction = playGameOfLifeAutomat;
-    else if (selectionId == 1)
+    if (selectionId == 1) {
         playFunction = playMarchGameAutomat;
-    else if (selectionId == 2)
+        drawMarch();
+    } else if (selectionId == 2) {
         playFunction = playInvasionGameAutomat;
-    else
+        drawInvasion();
+    } else if (selectionId == 3) {
         playFunction = playGameOfLifeAutomat;
+        drawBlinker();
+    } else if (selectionId == 4) {
+        playFunction = playGameOfLifeAutomat;
+        drawGlider();
+    } else if (selectionId == 5) {
+        playFunction = playGameOfLifeAutomat;
+        drawPiHeptomino();
+    } else if (selectionId == 6) {
+        playFunction = playGameOfLifeAutomat;
+        drawRHeptomino();
+    } else if (selectionId == 7) {
+        playFunction = playGameOfLifeAutomat;
+        drawThunderbird();
+    } else if (selectionId == 8) {
+        playFunction = playGameOfLifeAutomat;
+        drawDlidersByTheDozen();
+    }
 }
 
 // Event handlers configuration
@@ -125,20 +152,25 @@ function languageConfiguration() {
         document.getElementById(keys[index]).innerHTML = languageDict[lang][keys[index]];
 }
 
+// on resize funciton
+function onResizeFunction(event) {
+    document.getElementById('canvas').setAttribute('width', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
+    document.getElementById('canvas').setAttribute('height', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
+    prepareBoard();
+    playModeChanged();
+}
+
 // Configuration of jQuery controls - sliders, selection menu and buttons.
 $(function () {
     languageConfiguration();
 
-    window.addEventListener('resize', function (event) {
-        var boardContainer = document.getElementById('boardContainer');
-        document.getElementById('canvas').setAttribute('width', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
-        document.getElementById('canvas').setAttribute('height', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
-        prepareBoard();
-    });
+    window.addEventListener('resize', onResizeFunction);
+    var boardContainer = document.getElementById('boardContainer');
+    boardContainer.addEventListener('resize', onResizeFunction);
 
     $("#cellSizeSlider").slider({
         range: "min",
-        value: 50,
+        value: 30,
         min: 10,
         max: 100,
         slide: function (event, ui) {
@@ -157,7 +189,11 @@ $(function () {
             refreshStep();
         }
     });
-
     $("#cellSize").val($("#cellSizeSlider").slider("value"));
     $("#ticks").val($("#aminationTicksPerSecond").slider("value"));
+
+    window.onload = function () {
+        prepareBoard();
+        playModeChanged();
+    };
 });

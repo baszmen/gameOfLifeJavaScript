@@ -1,19 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title> GRA W ŻYCIE </title>
-    <script>
-        function showGamePl() {
-            sessionStorage.setItem("lang", "pl");
-            window.open("GameOfLife.html", "Binarne życie", "height=600px,width=900px");
-        }
-        function showGameEn() {
-            sessionStorage.setItem("lang", "en");
-            window.open("GameOfLife.html", "Binary lify", "height=600px,width=900px");
-        }
-    </script>
+    <script src="Scripts/Startup.js"></script>
 </head>
-<body onload="prepareBoard();">
+<body>
     <div>
         <button type="button" onclick="showGameEn();">English</button>
         <button type="button" onclick="showGamePl();">Polski</button>

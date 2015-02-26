@@ -54,11 +54,6 @@ a {
         color: #009f00;
     }
 
-.canvasContainer {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .canvas {
     width: 800px;
     height: 800px;
@@ -83,13 +78,14 @@ select {
   float:left;
   width:30%;
   height: 100%;
+  padding: 10px;
 }
 
 #boardContainer {
   float:left;
-  width:70%;
+  width:65%;
   height: 100%;
-    flex: 1;
+  flex: 1;
 }
 
 #boardContainer {

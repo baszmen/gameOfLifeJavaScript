@@ -3,10 +3,16 @@ var gameBoardCopy = null;
 var gameBoardX = 0;
 var gameBoardY = 0;
 var paddingAroundGrid = 5;
-var cellSize = 50;
+var cellSize = 30;
 var onMouseX = null;
 var onMouseY = null;
 
+// check if cell (x,y) exists
+function isInside(x, y) {
+    if (x >= 0 && x < gameBoardX && y >= 0 && y < gameBoardY)
+        return true;
+    return false;
+}
 
 // Change cell size to size chosed by user (slider)
 function setCellSize(size) {
@@ -112,8 +118,6 @@ function drawBoardBoarders() {
         var canvasWidth = canvas.getAttribute('width');
         var canvasHeight = canvas.getAttribute('height');
 
-        console.log(canvasHeight + " " + canvasWidth);
-
         // Calculate cellsCount (width and height)
         var cellWidthCount = parseInt((canvasWidth - 2 * paddingAroundGrid) / cellSize);
         var cellHeigthCount = parseInt((canvasHeight - 2 * paddingAroundGrid) / cellSize);
@@ -122,20 +126,14 @@ function drawBoardBoarders() {
         canvasWidth = parseInt(cellWidthCount * cellSize);
         canvasHeight = parseInt(cellHeigthCount * cellSize);
 
-
-        console.log('Calculated' + canvasHeight + " " + canvasWidth);
-
         // Clear board
         context.clearRect(0, 0, canvasWidth, canvasHeight);
         context.beginPath();
 
-        console.log(cellSize);
         // Draw vertical lines.
         for (var x = 0; x <= canvasWidth; x += cellSize) {
             context.moveTo(0.5 + x + paddingAroundGrid, paddingAroundGrid);
-            //console.log('Start' + (0.5 + x + paddingAroundGrid) + ' ' + paddingAroundGrid);
             context.lineTo(0.5 + x + paddingAroundGrid, canvasHeight + paddingAroundGrid);
-            //console.log('End' + (0.5 + x + paddingAroundGrid) + ' ' + (canvasHeight + paddingAroundGrid));
         }
 
         // Draw horizontal lines
@@ -220,4 +218,202 @@ function clearCell(x, y) {
         context.fillStyle = '#ffffff';
         context.fillRect(x, y, cellSize - 1, cellSize - 1);
     }
+}
+
+// Prepare for draw blinkers 
+function drawBlinker() {
+    if (gameBoardX <= 25 || gameBoardY <= 25) {
+        alert("Wymagany rozmiar planszy to przynajmniej: 25 x 25");
+        return;
+    }
+    clearCells();
+    blinker(3, 3, gameBoard);
+    bloc(17, 3, gameBoard);
+    tub(4, 9, gameBoard);
+    toad(17, 9, gameBoard);
+    clock(10, 15, gameBoard);
+    drawBoard();
+}
+
+// Prepare for draw march 
+function drawMarch() {
+    clearCells();
+    for (var i = 0; i < Math.min(gameBoardX, gameBoardY); i++)
+        gameBoard[i][i] = 1;
+    drawBoard();
+}
+
+// Prepare for draw invasion 
+function drawInvasion() {
+    clearCells();
+    var x = parseInt(gameBoardX / 2) - 1;
+    var y = parseInt(gameBoardY / 2) - 1;
+    for (var i = x - 1; i <= x + 1; i++)
+        for (var j = y - 1; j <= y + 1; j++)
+            gameBoard[i][j] = 1;
+    drawBoard();
+}
+
+// Prepare for glider
+function drawGlider() {
+    clearCells();
+    glider(
+        parseInt(gameBoardX / 4) + parseInt(gameBoardX / 2),
+        parseInt(gameBoardY / 4) + parseInt(gameBoardY / 2),
+        gameBoard
+    );
+
+    lightWeight(
+        parseInt(gameBoardX / 3),
+        parseInt(gameBoardY / 3),
+        gameBoard);
+    drawBoard();
+}
+
+// Prepare for pi heptomino
+function drawPiHeptomino() {
+    clearCells();
+    piHeptomino(
+        parseInt(gameBoardX / 2) - 2,
+        parseInt(gameBoardY / 2) + 2,
+        gameBoard);
+    drawBoard();
+}
+
+// Prepare for r heptomino
+function drawRHeptomino() {
+    clearCells();
+    rPentomino(
+        parseInt(gameBoardX / 4) + parseInt(gameBoardX / 3),
+        parseInt(gameBoardY / 4),
+        gameBoard);
+    drawBoard();
+}
+
+// Prepare for thunderbird
+function drawThunderbird() {
+    clearCells();
+    thunderbird(
+        parseInt(gameBoardX / 2) - 2,
+        parseInt(gameBoardY / 2) - 2,
+        gameBoard);
+    drawBoard();
+}
+
+// Prepare for glidersByTheDozen
+function drawDlidersByTheDozen() {
+    clearCells();
+    glidersByTheDozen(
+        parseInt(gameBoardX / 2) - 2,
+        parseInt(gameBoardY / 2) - 2,
+        gameBoard);
+    drawBoard();
+}
+
+
+
+// Functions to draw certain objects 
+//(from previous application in java - adapter)
+function blinker(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i + 1][j] = 1;
+    boardReference[i + 2][j] = 1;
+}
+
+function bloc(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i + 1][j] = 1;
+    boardReference[i][j + 1] = 1;
+    boardReference[i + 1][j + 1] = 1;
+}
+
+function tub(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i - 1][j + 1] = 1;
+    boardReference[i + 1][j + 1] = 1;
+    boardReference[i][j + 2] = 1;
+}
+
+function toad(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i + 1][j] = 1;
+    boardReference[i + 2][j] = 1;
+    boardReference[i + 1][j + 1] = 1;
+    boardReference[i + 2][j + 1] = 1;
+    boardReference[i + 3][j + 1] = 1;
+}
+
+function clock(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i][j + 1] = 1;
+    boardReference[i - 1][j + 2] = 1;
+    boardReference[i + 1][j + 2] = 1;
+    boardReference[i + 1][j + 3] = 1;
+    boardReference[i + 2][j + 1] = 1;
+}
+
+function glider(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i + 1][j] = 1;
+    boardReference[i + 2][j] = 1;
+    boardReference[i][j + 1] = 1;
+    boardReference[i + 1][j + 2] = 1;
+}
+
+function lightWeight(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i + 1][j] = 1;
+    boardReference[i + 2][j] = 1;
+    boardReference[i + 3][j] = 1;
+    boardReference[i + 4][j + 1] = 1;
+    boardReference[i][j + 1] = 1;
+    boardReference[i][j + 2] = 1;
+    boardReference[i + 1][j + 3] = 1;
+}
+
+function piHeptomino(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i + 1][j] = 1;
+    boardReference[i + 2][j] = 1;
+    boardReference[i + 3][j + 1] = 1;
+    boardReference[i][j + 1] = 1;
+}
+
+function rPentomino(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i][j + 1] = 1;
+    boardReference[i + 1][j + 1] = 1;
+    boardReference[i + 2][j + 1] = 1;
+    boardReference[i + 1][j + 2] = 1;
+}
+
+function thunderbird(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i][j + 1] = 1;
+    boardReference[i + 2][j + 1] = 1;
+    boardReference[i + 3][j + 1] = 1;
+    boardReference[i + 4][j + 1] = 1;
+    boardReference[i][j + 2] = 1;
+}
+
+function glidersByTheDozen(i, j, boardReference) {
+    if (!isInside(i, j)) return;
+    boardReference[i][j] = 1;
+    boardReference[i + 1][j] = 1;
+    boardReference[i + 4][j] = 1;
+    boardReference[i][j + 1] = 1;
+    boardReference[i][j + 2] = 1;
+    boardReference[i + 3][j + 2] = 1;
+    boardReference[i + 4][j + 2] = 1;
+    boardReference[i + 4][j + 1] = 1;
 }

@@ -1,10 +1,10 @@
-function showGamePl() {
+function showGamePl(url) {
     sessionStorage.setItem("lang", "pl");
-    popupWindow("automats.html", "Binarne ¿ycie", 900, 600);
+    popupWindow(url, "Binarne ¿ycie", 900, 600);
 }
-function showGameEn() {
+function showGameEn(url) {
     sessionStorage.setItem("lang", "en");
-    popupWindow("automats.html", "Binary life", 900, 600);
+    popupWindow(url, "Binary life", 900, 600);
 }
 
 function popupWindow(url, title, w, h) {

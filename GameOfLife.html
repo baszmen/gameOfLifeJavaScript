@@ -12,27 +12,27 @@
 </head>
 <body onload="prepareBoard();">
     <div id="menuContainer">
-        <button type="button" onclick="clearCells();">Czysc!</button>
-        <button type="button" onclick="start();">Start!</button>
-        <button type="button" onclick="stop();">Stop!</button>
-        <button type="button" onclick="oneStep();">Krok!</button>
-        <button type="button" onclick="randomCells();">Losuj!</button>
+        <button id="clearButton" type="button" onclick="clearCells();">Czysc!</button>
+        <button id="startButton" type="button" onclick="start();">Start!</button>
+        <button id="stopButton" type="button" onclick="stop();">Stop!</button>
+        <button id="stepButton" type="button" onclick="oneStep();">Krok!</button>
+        <button id="randButton" type="button" onclick="randomCells();">Losuj!</button>
 
-        <label for="radius" style="border:0; color:#000000; font-weight:bold;">Wybierz metode:</label>
+        <label id="methodLabel" for="radius" style="border:0; color:#000000; font-weight:bold;">Wybierz metode:</label>
         <select name="radius" id="radius">
-            <option value="0">Gra w zycie</option>
-            <option value="1">Marsz</option>
-            <option value="2">Inwazja</option>
+            <option value="0" id="gameOfLifeOption">Gra w zycie</option>
+            <option value="1" id="marchOption">Marsz</option>
+            <option value="2" id="invasionOption">Inwazja</option>
         </select>
 
         <p>
-            <label for="ticks" style="border:0; color:#000000; font-weight:bold;">Klatek na sekunde:</label>
+            <label id="fpsLabel" for="ticks" style="border:0; color:#000000; font-weight:bold;">Klatek na sekunde:</label>
             <input type="text" id="ticks" style="border:0; color:#000000; font-weight:bold;">
         </p>
         <div id="aminationTicksPerSecond"></div>
 
         <p>
-            <label for="cellSize" readonly style="border:0; color:#000000; font-weight:bold;">Rozmiar komorki:</label>
+            <label id="cellSizeLabel" for="cellSize" readonly style="border:0; color:#000000; font-weight:bold;">Rozmiar komorki:</label>
             <input type="text" id="cellSize" readonly style="border:0; color:#000000; font-weight:bold;">
         </p>
         <div id="cellSizeSlider"></div>

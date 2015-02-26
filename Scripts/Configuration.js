@@ -1,7 +1,37 @@
 var timeStep = 1 * 1000;
 var setIntervalId = null;
 var playFunction;
-var automats = ['Gra w ¿ycie', 'Marsza', 'Inwazja'];
+var automatsPl = ['Gra w ¿ycie', 'Marsza', 'Inwazja'];
+var automatsEn = ['Game of life', 'March', 'Invasion'];
+
+var languageDict = {
+    'pl': {
+        'clearButton': 'Wyczyœæ',
+        'startButton': 'Start',
+        'stopButton': 'Stop',
+        'stepButton': 'Krok',
+        'randButton': 'Losuj',
+        'methodLabel': 'Wybierze metodê',
+        'gameOfLifeOption': 'Gra w ¿ycie',
+        'marchOption': 'Marsz',
+        'invasionOption': 'Inwazja',
+        'fpsLabel': 'Klatek na sekundê:',
+        'cellSizeLabel': 'Rozmiar komórki'
+    },
+    'en': {
+        'clearButton': 'Clear',
+        'startButton': 'Start',
+        'stopButton': 'Stop',
+        'stepButton': 'Step',
+        'randButton': 'Random',
+        'methodLabel': 'Chose method:',
+        'gameOfLifeOption': 'Game of Life',
+        'marchOption': 'March',
+        'invasionOption': 'Invasion',
+        'fpsLabel': 'Frames per second:',
+        'cellSizeLabel': 'Cell size:'
+    }
+};
 
 /*
     Get clicked position and calculate x and y position to a board
@@ -89,14 +119,22 @@ function refreshStep() {
 
 // Configuration of jQuery controls - sliders, selection menu and buttons.
 $(function () {
-    var a = sessionStorage.getItem("lang");
+    var lang = sessionStorage.getItem("lang");
+    console.log(lang);
+    console.log(languageDict);
+    var keys = Object.keys(languageDict[lang]);
+    console.log(languageDict[lang]['clearButton']);
+    console.log(keys);
+    for (var index in keys) {
+        document.getElementById(keys[index]).innerHTML = languageDict[lang][keys[index]];
+    }
 
     window.addEventListener('resize', function (event) {
         var boardContainer = document.getElementById('boardContainer');
 
         console.log(boardContainer);
 
-        document.getElementById('canvas').setAttribute('width', Math.min($("#boardContainer").width(),$("#boardContainer").height()));
+        document.getElementById('canvas').setAttribute('width', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
         document.getElementById('canvas').setAttribute('height', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
         prepareBoard();
     });

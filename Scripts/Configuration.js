@@ -1,8 +1,6 @@
-var timeStep = 1 * 1000;
+var timeStep = 0.1 * 1000;
 var setIntervalId = null;
 var playFunction;
-var automatsPl = ['Gra w ¿ycie', 'Marsza', 'Inwazja'];
-var automatsEn = ['Game of life', 'March', 'Invasion'];
 
 var languageDict = {
     'pl': {
@@ -70,8 +68,9 @@ function getClickedPositionAndRedraw(e) {
 /*
 * Change mode after clicked on html form
 */
-function playModeChanged(id) {
-    var selectionId = id;
+function playModeChanged() {
+    console.log("Dupsko");
+    var selectionId = document.getElementById('selectionMenu').value;
     if (selectionId == 0)
         playFunction = playGameOfLifeAutomat;
     else if (selectionId == 1)
@@ -80,6 +79,7 @@ function playModeChanged(id) {
         playFunction = playInvasionGameAutomat;
     else
         playFunction = playGameOfLifeAutomat;
+    console.log(playFunction);
 }
 
 // Event handlers configuration
@@ -91,7 +91,8 @@ function configuration() {
 
 // Start playing game of life with standard timestep
 function start() {
-    console.log(timeStep);
+    document.getElementById('startButton').disabled = true;
+    document.getElementById('stopButton').disabled = false;
     if (setIntervalId != null)
         clearInterval(setIntervalId);
     setIntervalId = setInterval(playFunction, timeStep);
@@ -104,6 +105,8 @@ function oneStep() {
 
 // Stop working
 function stop() {
+    document.getElementById('stopButton').disabled = true;
+    document.getElementById('startButton').disabled = false;
     if (setIntervalId != null)
         clearInterval(setIntervalId);
 }
@@ -116,18 +119,17 @@ function refreshStep() {
         start();
 }
 
+// Set propert language on every object in languageDictionary
+function languageConfiguration() {
+    var lang = sessionStorage.getItem("lang");
+    var keys = Object.keys(languageDict[lang]);
+    for (var index in keys)
+        document.getElementById(keys[index]).innerHTML = languageDict[lang][keys[index]];
+}
 
 // Configuration of jQuery controls - sliders, selection menu and buttons.
 $(function () {
-    var lang = sessionStorage.getItem("lang");
-    console.log(lang);
-    console.log(languageDict);
-    var keys = Object.keys(languageDict[lang]);
-    console.log(languageDict[lang]['clearButton']);
-    console.log(keys);
-    for (var index in keys) {
-        document.getElementById(keys[index]).innerHTML = languageDict[lang][keys[index]];
-    }
+    languageConfiguration();
 
     window.addEventListener('resize', function (event) {
         var boardContainer = document.getElementById('boardContainer');
@@ -157,12 +159,6 @@ $(function () {
         slide: function (event, ui) {
             $("#ticks").val(ui.value);
             timeStep = 1000 / ui.value;
-            refreshStep();
-        }
-    });
-    $("#radius").selectmenu({
-        change: function (event, data) {
-            playModeChanged(data.item.value);
             refreshStep();
         }
     });

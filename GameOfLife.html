@@ -14,12 +14,12 @@
     <div id="menuContainer">
         <button id="clearButton" type="button" onclick="clearCells();">Czysc!</button>
         <button id="startButton" type="button" onclick="start();">Start!</button>
-        <button id="stopButton" type="button" onclick="stop();">Stop!</button>
+        <button id="stopButton" type="button" onclick="stop();" disabled>Stop!</button>
         <button id="stepButton" type="button" onclick="oneStep();">Krok!</button>
         <button id="randButton" type="button" onclick="randomCells();">Losuj!</button>
 
         <label id="methodLabel" for="radius" style="border:0; color:#000000; font-weight:bold;">Wybierz metode:</label>
-        <select name="radius" id="radius">
+        <select id="selectionMenu" onChange="playModeChanged();">
             <option value="0" id="gameOfLifeOption">Gra w zycie</option>
             <option value="1" id="marchOption">Marsz</option>
             <option value="2" id="invasionOption">Inwazja</option>

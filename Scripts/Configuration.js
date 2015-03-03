@@ -9,7 +9,7 @@ var languageDict = {
         'stopButton': 'Stop',
         'stepButton': 'Krok',
         'randButton': 'Losuj',
-        'methodLabel': 'Wybierze metodê',
+        'methodLabel': 'Wybierz Automat:',
         'marchOption': 'Marsz',
         'blinkerOption': '¯ycie / Blinker',
         'gliderOption': '¯ycie / Glider',
@@ -18,7 +18,7 @@ var languageDict = {
         'thunderbirdOption': '¯ycie / Thunderbird',
         'gildersdozenOption': '¯ycie / Glider by the Dozen',
         'invasionOption': 'Inwazja',
-        'fpsLabel': 'Klatek na sekundê:',
+        'fpsLabel': 'Prêdkoœæ:',
         'cellSizeLabel': 'Rozmiar komórki'
     },
     'en': {
@@ -27,7 +27,7 @@ var languageDict = {
         'stopButton': 'Stop',
         'stepButton': 'Step',
         'randButton': 'Random',
-        'methodLabel': 'Chose method:',
+        'methodLabel': 'Select CA:',
         'marchOption': 'March',
         'blinkerOption': 'Life / Blinker',
         'gliderOption': 'Life / Glider',
@@ -36,7 +36,7 @@ var languageDict = {
         'thunderbirdOption': 'Life / Thunderbird',
         'gildersdozenOption': 'Life / Glider by the Dozen',
         'invasionOption': 'Invasion',
-        'fpsLabel': 'Frames per second:',
+        'fpsLabel': 'Speed:',
         'cellSizeLabel': 'Cell size:'
     }
 };
@@ -157,7 +157,6 @@ function onResizeFunction(event) {
     document.getElementById('canvas').setAttribute('width', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
     document.getElementById('canvas').setAttribute('height', Math.min($("#boardContainer").width(), $("#boardContainer").height()));
     prepareBoard();
-    playModeChanged();
 }
 
 // Configuration of jQuery controls - sliders, selection menu and buttons.
